@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./App.css";
-import Header from "./components/common/Header";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import Contact from "./pages/Contact";

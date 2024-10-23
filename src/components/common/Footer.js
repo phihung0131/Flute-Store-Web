@@ -3,16 +3,16 @@ import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer class="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 font-sans tracking-wide">
-      <div class="py-12 px-12">
-        <div class="flex flex-wrap items-center sm:justify-between max-sm:flex-col gap-6">
+    <footer className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 font-sans tracking-wide">
+      <div className="py-12 px-12">
+        <div className="flex flex-wrap items-center sm:justify-between max-sm:flex-col gap-6">
           <div>
             <NavLink to="/">
-              <img src="/logo.png" alt="logo" class="h-[40px] " />
+              <img src="/logo.png" alt="logo" className="h-[40px] " />
             </NavLink>
           </div>
 
-          <ul class="flex items-center justify-center flex-wrap gap-y-2 md:justify-end space-x-6">
+          <ul className="flex items-center justify-center flex-wrap gap-y-2 md:justify-end space-x-6">
             <li>
               <NavLink
                 to="/"
@@ -48,9 +48,9 @@ const Footer = () => {
           </ul>
         </div>
 
-        <hr class="my-6 border-gray-500" />
+        <hr className="my-6 border-gray-500" />
 
-        <p class="text-center text-gray-300 text-base">
+        <p className="text-center text-gray-300 text-base">
           © SaoTruc. All rights reserved.
         </p>
       </div>

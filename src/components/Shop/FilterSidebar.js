@@ -5,30 +5,20 @@ const FilterSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 1000]);
-  const [selectedBrands, setSelectedBrands] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const categories = ["Áo", "Quần", "Giày dép", "Phụ kiện", "Túi xách"];
-
-  const brands = ["Nike", "Adidas", "Puma", "Gucci", "Zara", "H&M"];
-
-  const filteredBrands = brands.filter((brand) =>
-    brand.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const categories = [
+    "Giá tăng dần",
+    "Giá giảm dần",
+    "Bán chạy nhất",
+    "Phù hợp với bạn",
+  ];
 
   const toggleCategory = (category) => {
     if (selectedCategories.includes(category)) {
       setSelectedCategories(selectedCategories.filter((c) => c !== category));
     } else {
       setSelectedCategories([...selectedCategories, category]);
-    }
-  };
-
-  const toggleBrand = (brand) => {
-    if (selectedBrands.includes(brand)) {
-      setSelectedBrands(selectedBrands.filter((b) => b !== brand));
-    } else {
-      setSelectedBrands([...selectedBrands, brand]);
     }
   };
 
@@ -102,7 +92,7 @@ const FilterSidebar = () => {
 
           {/* Categories */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold mb-3">Danh mục</h3>
+            <h3 className="text-sm font-semibold mb-3">Sắp xếp</h3>
             <div className="space-y-2 text-sm">
               {categories.map((category) => (
                 <label
@@ -120,32 +110,6 @@ const FilterSidebar = () => {
               ))}
             </div>
           </div>
-
-          {/* Brands */}
-          <div className="mb-6">
-            <h3 className="text-sm font-semibold mb-3">Thương hiệu</h3>
-            <div className="space-y-2 text-sm">
-              {filteredBrands.map((brand) => (
-                <label
-                  key={brand}
-                  className="flex items-center space-x-2 cursor-pointer"
-                >
-                  <input
-                    type="checkbox"
-                    checked={selectedBrands.includes(brand)}
-                    onChange={() => toggleBrand(brand)}
-                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                  />
-                  <span>{brand}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          {/* Apply button */}
-          <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-sm">
-            Áp dụng bộ lọc
-          </button>
         </div>
       </div>
     </div>
