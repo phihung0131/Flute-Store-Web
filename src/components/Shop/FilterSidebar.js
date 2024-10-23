@@ -1,25 +1,31 @@
-import React, { useState } from "react";
-import { X, Filter, Search } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { X, Filter, Search, RotateCcw } from "lucide-react";
 
-const FilterSidebar = () => {
+const FilterSidebar = ({ onFilterChange }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [priceRange, setPriceRange] = useState([0, 1000]);
+  const [selectedSort, setSelectedSort] = useState("Phù hợp với bạn");
+  const [priceRange, setPriceRange] = useState([0, 100]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const categories = [
+  const sortOptions = [
     "Giá tăng dần",
     "Giá giảm dần",
     "Bán chạy nhất",
     "Phù hợp với bạn",
   ];
 
-  const toggleCategory = (category) => {
-    if (selectedCategories.includes(category)) {
-      setSelectedCategories(selectedCategories.filter((c) => c !== category));
-    } else {
-      setSelectedCategories([...selectedCategories, category]);
-    }
+  useEffect(() => {
+    onFilterChange({
+      sort: selectedSort,
+      priceRange,
+      searchTerm,
+    });
+  }, [selectedSort, priceRange, searchTerm]);
+
+  const resetFilters = () => {
+    setSelectedSort("Phù hợp với bạn");
+    setPriceRange([0, 100]);
+    setSearchTerm("");
   };
 
   return (
@@ -40,7 +46,7 @@ const FilterSidebar = () => {
         />
       )}
 
-      {/* Sidebar - Now positioned below header */}
+      {/* Sidebar */}
       <div
         className={`
         fixed md:sticky top-[80px] h-[calc(100vh-80px)] md:h-auto w-64 max-w-[80vw] 
@@ -76,7 +82,7 @@ const FilterSidebar = () => {
               <input
                 type="range"
                 min="0"
-                max="1000"
+                max="100"
                 value={priceRange[1]}
                 onChange={(e) =>
                   setPriceRange([priceRange[0], parseInt(e.target.value)])
@@ -90,26 +96,35 @@ const FilterSidebar = () => {
             </div>
           </div>
 
-          {/* Categories */}
+          {/* Sort options */}
           <div className="mb-6">
             <h3 className="text-sm font-semibold mb-3">Sắp xếp</h3>
             <div className="space-y-2 text-sm">
-              {categories.map((category) => (
+              {sortOptions.map((option) => (
                 <label
-                  key={category}
+                  key={option}
                   className="flex items-center space-x-2 cursor-pointer"
                 >
                   <input
-                    type="checkbox"
-                    checked={selectedCategories.includes(category)}
-                    onChange={() => toggleCategory(category)}
-                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    type="radio"
+                    checked={selectedSort === option}
+                    onChange={() => setSelectedSort(option)}
+                    className="rounded-full border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
-                  <span>{category}</span>
+                  <span>{option}</span>
                 </label>
               ))}
             </div>
           </div>
+
+          {/* Reset button */}
+          <button
+            onClick={resetFilters}
+            className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded inline-flex items-center justify-center"
+          >
+            <RotateCcw className="h-4 w-4 mr-2" />
+            Đặt lại bộ lọc
+          </button>
         </div>
       </div>
     </div>

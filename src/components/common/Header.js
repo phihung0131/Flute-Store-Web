@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import CartPopup from "../Card/CartPopup";
 
 const Header = () => {
+  const [isCartPopupOpen, setIsCartPopupOpen] = useState(false);
   function handleClick() {
     let collapseMenu = document.getElementById("collapseMenu");
 
@@ -111,7 +113,12 @@ const Header = () => {
 
           <div className="flex gap-x-6 gap-y-4 ml-auto">
             <div className="flex items-center">
-              <span className="relative mr-3">
+              <span
+                className="relative mr-3"
+                onClick={() => {
+                  setIsCartPopupOpen(true);
+                }}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20px"
@@ -157,6 +164,8 @@ const Header = () => {
           </div>
         </div>
       </header>
+
+      {isCartPopupOpen && <CartPopup setIsCartPopupOpen={setIsCartPopupOpen} />}
     </>
   );
 };

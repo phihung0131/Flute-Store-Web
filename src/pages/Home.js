@@ -8,7 +8,6 @@ const Home = () => {
   return (
     <div className="home-page">
       <Header />
-
       <div className="banner">
         <div className="relative">
           <div className="absolute inset-0 bg-black/100" />
