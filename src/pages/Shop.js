@@ -18,7 +18,7 @@ const Shop = () => {
   return (
     <div>
       <Header />
-      <main className="flex-1 pt-[80px]">
+      <main className="flex-1">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row gap-6">
             <aside className="md:w-64 flex-shrink-0">

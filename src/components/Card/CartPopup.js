@@ -1,15 +1,22 @@
 import React from "react";
 import CartItem from "./CardItem";
+import { useSelector } from "react-redux";
 const CartPopup = (props) => {
+  const cartItems = useSelector((state) => state.cart.items);
+  const totalPrice = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  ).toFixed(2);
+
   return (
-    <div class="fixed inset-0 w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] font-sans">
-      <div class="w-full max-w-xl bg-white shadow-lg relative ml-auto h-screen">
-        <div class="overflow-auto p-6 h-[calc(100vh-135px)]">
-          <div class="flex items-center gap-4 text-gray-800">
-            <h3 class="text-2xl font-bold flex-1">Giỏ hàng</h3>
+    <div className="fixed inset-0 w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] font-sans">
+      <div className="w-full max-w-xl bg-white shadow-lg relative ml-auto h-screen">
+        <div className="overflow-auto p-6 h-[calc(100vh-135px)]">
+          <div className="flex items-center gap-4 text-gray-800">
+            <h3 className="text-2xl font-bold flex-1">Giỏ hàng</h3>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="w-3.5 ml-2 cursor-pointer shrink-0 fill-black hover:fill-red-500"
+              className="w-3.5 ml-2 cursor-pointer shrink-0 fill-black hover:fill-red-500"
               viewBox="0 0 320.591 320.591"
               onClick={() => props.setIsCartPopupOpen(false)}
             >
@@ -24,20 +31,22 @@ const CartPopup = (props) => {
             </svg>
           </div>
 
-          <div class="space-y-4 mt-12">
-            <CartItem />
+          <div className="space-y-4 mt-12">
+            {cartItems.map((item, index) => (
+              <CartItem key={index} {...item} />
+            ))}
           </div>
         </div>
 
-        <div class="p-6 absolute bottom-0 w-full border-t bg-white">
-          <ul class="text-gray-800 divide-y">
-            <li class="flex flex-wrap gap-4 text-lg font-bold">
-              Tổng: <span class="ml-auto">$125.00</span>
+        <div className="p-6 absolute bottom-0 w-full border-t bg-white">
+          <ul className="text-gray-800 divide-y">
+            <li className="flex flex-wrap gap-4 text-lg font-bold">
+              Tổng: <span className="ml-auto">${totalPrice}</span>
             </li>
           </ul>
           <button
             type="button"
-            class="mt-6 text-sm font-semibold px-6 py-3 w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md tracking-wide"
+            className="mt-6 text-sm font-semibold px-6 py-3 w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md tracking-wide"
           >
             Đặt hàng ngay
           </button>

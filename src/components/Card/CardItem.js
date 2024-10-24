@@ -1,29 +1,35 @@
 import React from "react";
-
+import { useDispatch } from "react-redux";
+import {
+  removeFromCart,
+  increaseQuantity,
+  decreaseQuantity,
+} from "../../redux/action/cartAction";
 const CardItem = (props) => {
+  const dispatch = useDispatch();
   return (
     <>
-      <div class="grid grid-cols-3 items-start gap-4">
-        <div class="col-span-2 flex items-start gap-4">
-          <div class="w-28 h-28 max-sm:w-24 max-sm:h-24 shrink-0 bg-gray-100 p-2 rounded-md">
-            <img
-              src="https://readymadeui.com/images/product14.webp"
-              class="w-full h-full object-contain"
-            />
+      <div className="grid grid-cols-3 items-start gap-4">
+        <div className="col-span-2 flex items-start gap-4">
+          <div className="w-28 h-28 max-sm:w-24 max-sm:h-24 shrink-0 bg-gray-100 p-2 rounded-md">
+            <img src={props.image} className="w-full h-full object-contain" />
           </div>
 
-          <div class="flex flex-col">
-            <h3 class="text-base max-sm:text-sm font-bold text-gray-800">
-              Velvet Sneaker
+          <div className="flex flex-col">
+            <h3 className="text-base max-sm:text-sm font-bold text-gray-800">
+              {props.productName}
             </h3>
 
             <button
               type="button"
-              class="mt-6 font-semibold text-red-500 text-xs flex items-center gap-1 shrink-0"
+              className="mt-6 font-semibold text-red-500 text-xs flex items-center gap-1 shrink-0"
+              onClick={() => {
+                dispatch(removeFromCart(props.productId));
+              }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="w-4 fill-current inline"
+                className="w-4 fill-current inline"
                 viewBox="0 0 24 24"
               >
                 <path
@@ -40,19 +46,22 @@ const CardItem = (props) => {
           </div>
         </div>
 
-        <div class="ml-auto">
-          <h4 class="text-lg max-sm:text-base max-sm:text-sm font-bold text-gray-800">
-            $20.00
+        <div className="ml-auto">
+          <h4 className="text-lg max-sm:text-base max-sm:text-sm font-bold text-gray-800">
+            ${props.price}
           </h4>
 
           <button
             type="button"
-            class="mt-6 flex items-center px-3 py-1.5 border border-gray-300 text-gray-800 text-xs outline-none bg-transparent rounded-md"
+            className="mt-6 flex items-center px-3 py-1.5 border border-gray-300 text-gray-800 text-xs outline-none bg-transparent rounded-md"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="w-2.5 fill-current"
+              className="w-2.5 fill-current"
               viewBox="0 0 124 124"
+              onClick={() => {
+                dispatch(decreaseQuantity(props.productId));
+              }}
             >
               <path
                 d="M112 50H12C5.4 50 0 55.4 0 62s5.4 12 12 12h100c6.6 0 12-5.4 12-12s-5.4-12-12-12z"
@@ -60,11 +69,14 @@ const CardItem = (props) => {
               ></path>
             </svg>
 
-            <span class="mx-3 font-bold">2</span>
+            <span className="mx-3 font-bold">{props.quantity}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="w-2.5 fill-current"
+              className="w-2.5 fill-current"
               viewBox="0 0 42 42"
+              onClick={() => {
+                dispatch(increaseQuantity(props.productId));
+              }}
             >
               <path
                 d="M37.059 16H26V4.941C26 2.224 23.718 0 21 0s-5 2.224-5 4.941V16H4.941C2.224 16 0 18.282 0 21s2.224 5 4.941 5H16v11.059C16 39.776 18.282 42 21 42s5-2.224 5-4.941V26h11.059C39.776 26 42 23.718 42 21s-2.224-5-4.941-5z"
@@ -74,7 +86,7 @@ const CardItem = (props) => {
           </button>
         </div>
       </div>
-      <hr class="border-gray-300" />
+      <hr className="border-gray-300" />
     </>
   );
 };

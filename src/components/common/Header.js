@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import CartPopup from "../Card/CartPopup";
-
+import { useSelector } from "react-redux";
 const Header = () => {
+  const cartItems = useSelector((state) => state.cart.items);
+
   const [isCartPopupOpen, setIsCartPopupOpen] = useState(false);
   function handleClick() {
     let collapseMenu = document.getElementById("collapseMenu");
@@ -132,7 +134,7 @@ const Header = () => {
                   ></path>
                 </svg>
                 <span className="absolute left-auto -ml-1 top-0 rounded-full bg-red-500 px-1 py-0 text-xs text-white">
-                  0
+                  {cartItems.length}
                 </span>
               </span>
               <button className="ml-3 px-5 py-2 text-sm rounded-full text-white border-2 border-[#007bff] bg-[#007bff] hover:bg-[#004bff]">

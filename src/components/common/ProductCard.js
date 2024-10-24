@@ -10,7 +10,6 @@ const ProductCard = (props) => {
         navigate("/product/" + props.productId);
       }}
     >
-
       <div className="w-5/6 h-[210px] overflow-hidden mx-auto aspect-w-16 aspect-h-8 md:mb-2 mb-4">
         <img
           src={props.image}
