@@ -11,13 +11,14 @@ import Product from "./pages/Product";
 import Order from "./pages/Order";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import About from "./pages/About";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
-        <Route path="/about" element={<Contact />} />
+        <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/order" element={<Order />} />

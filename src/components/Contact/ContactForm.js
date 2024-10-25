@@ -2,17 +2,17 @@ const ContactForm = () => {
   return (
     <div className="max-w-full max-lg:max-w-full mx-auto bg-gray-100 font-[sans-serif] py-7 px-36">
       <div className="text-center px-6">
-        <h2 className="text-gray-800 text-3xl font-extrabold">Contact Us</h2>
+        <h2 className="text-gray-800 text-3xl font-extrabold font-sans">Liên Hệ Với Chúng Tôi</h2>
         <p className="text-sm text-gray-500 mt-4">
-          Have some big idea or brand to develop and need help?
+          Bạn có ý tưởng lớn hoặc thương hiệu cần phát triển và cần sự giúp đỡ?
         </p>
       </div>
 
       <div className="grid lg:grid-cols-3 items-start gap-4 p-2 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-lg mt-12">
         <div className="bg-[#011c2b] rounded-lg p-6 h-full max-lg:order-1">
-          <h2 className="text-xl text-white">Contact Information</h2>
+          <h2 className="text-xl text-white">Thông Tin Liên Hệ</h2>
           <p className="text-sm text-gray-300 mt-4">
-            Have some big idea or brand to develop and need help?
+            Bạn có ý tưởng lớn hoặc thương hiệu cần phát triển và cần sự giúp đỡ?
           </p>
 
           <ul className="mt-16 space-y-8">
@@ -77,7 +77,7 @@ const ContactForm = () => {
                 href="javascript:void(0)"
                 className="text-white text-sm text-gray-500 ml-4"
               >
-                123 Street 256 House
+                123 Đường 256 Nhà
               </a>
             </li>
           </ul>
@@ -137,7 +137,7 @@ const ContactForm = () => {
               <div className="relative flex items-center">
                 <input
                   type="text"
-                  placeholder="First Name"
+                  placeholder="Họ"
                   className="px-2 py-3 bg-white w-full text-sm text-gray-800 border-b border-gray-300 focus:border-blue-500 outline-none"
                 />
                 <svg
@@ -158,7 +158,7 @@ const ContactForm = () => {
               <div className="relative flex items-center">
                 <input
                   type="text"
-                  placeholder="Last Name"
+                  placeholder="Tên"
                   className="px-2 py-3 bg-white w-full text-sm text-gray-800 border-b border-gray-300 focus:border-blue-500 outline-none"
                 />
                 <svg
@@ -179,7 +179,7 @@ const ContactForm = () => {
               <div className="relative flex items-center">
                 <input
                   type="number"
-                  placeholder="Phone No."
+                  placeholder="Số Điện Thoại"
                   className="px-2 py-3 bg-white text-black w-full text-sm text-gray-800 border-b border-gray-300 focus:border-blue-500 outline-none"
                 />
                 <svg
@@ -233,7 +233,7 @@ const ContactForm = () => {
 
               <div className="relative flex items-center sm:col-span-2">
                 <textarea
-                  placeholder="Write Message"
+                  placeholder="Viết Tin Nhắn"
                   className="px-2 pt-3 bg-white text-black w-full text-sm text-gray-800 border-b border-gray-300 focus:border-blue-500 outline-none"
                 ></textarea>
                 <svg
@@ -268,7 +268,7 @@ const ContactForm = () => {
               </div>
 
               <div className="col-span-full">
-                <h6 className="text-sm text-gray-800">Select Subject</h6>
+                <h6 className="text-sm text-gray-800">Chọn Chủ Đề</h6>
                 <div className="flex max-lg:flex-col gap-6 mt-4">
                   <div className="flex items-center">
                     <input
@@ -285,7 +285,7 @@ const ContactForm = () => {
                       <span className="border-[4px] border-[#011c2b] rounded-full w-full h-full"></span>
                     </label>
                     <p className="text-sm text-gray-500 ml-4">
-                      General Inquiry
+                      Yêu Cầu Chung
                     </p>
                   </div>
 
@@ -303,7 +303,7 @@ const ContactForm = () => {
                       <span className="border-[4px] border-[#011c2b] rounded-full w-full h-full"></span>
                     </label>
                     <p className="text-sm text-gray-500 ml-4">
-                      Technical Support
+                      Hỗ Trợ Kỹ Thuật
                     </p>
                   </div>
 
@@ -321,7 +321,7 @@ const ContactForm = () => {
                       <span className="border-[4px] border-[#011c2b] rounded-full w-full h-full"></span>
                     </label>
                     <p className="text-sm text-gray-500 ml-4">
-                      Website Feedback
+                      Phản Hồi Website
                     </p>
                   </div>
                 </div>
@@ -347,7 +347,7 @@ const ContactForm = () => {
                   data-original="#000000"
                 />
               </svg>
-              Send Message
+              Gửi Tin Nhắn
             </button>
           </form>
         </div>
