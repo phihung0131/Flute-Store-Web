@@ -1,12 +1,22 @@
 import React from "react";
 import CartItem from "./CardItem";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { showToast } from "../../helper/showToast";
 const CartPopup = (props) => {
+  const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart.items);
-  const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  ).toFixed(2);
+  const totalPrice = cartItems
+    .reduce((total, item) => total + item.price * item.quantity, 0)
+    .toFixed(2);
+
+  const handleCheckout = () => {
+    if (cartItems.length === 0) {
+      showToast.warning("Giỏ hàng trống");
+      return;
+    }
+    navigate("/order");
+  };
 
   return (
     <div className="fixed inset-0 w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] font-sans">
@@ -47,6 +57,7 @@ const CartPopup = (props) => {
           <button
             type="button"
             className="mt-6 text-sm font-semibold px-6 py-3 w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md tracking-wide"
+            onClick={() => handleCheckout()}
           >
             Đặt hàng ngay
           </button>

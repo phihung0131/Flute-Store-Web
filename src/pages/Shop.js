@@ -2,9 +2,12 @@ import Footer from "../components/common/Footer";
 import Header from "../components/common/Header";
 import FilterSidebar from "../components/Shop/FilterSidebar";
 import ProductsList from "../components/Shop/ProductsList";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import { scrollToTop } from "../helper/scrollToTop";
 const Shop = () => {
+  useEffect(() => {
+    scrollToTop();
+  }, []);
   const [filters, setFilters] = useState({
     sort: "Phù hợp với bạn",
     priceRange: [0, 1000],

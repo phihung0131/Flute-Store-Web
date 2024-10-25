@@ -2,9 +2,13 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../components/common/Footer";
 import Header from "../components/common/Header";
 import ProductNewList from "../components/Home/ProductNewList";
-
+import { useEffect } from "react";
+import { scrollToTop } from "../helper/scrollToTop";
 const Home = () => {
-    const navigate = useNavigate();
+  useEffect(() => {
+    scrollToTop();
+  }, []);
+  const navigate = useNavigate();
   return (
     <div className="home-page">
       <Header />

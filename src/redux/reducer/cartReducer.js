@@ -3,6 +3,7 @@ import {
   REMOVE_FROM_CART,
   INCREASE_QUANTITY,
   DECREASE_QUANTITY,
+  CLEAR_CART,
 } from "../action/cartAction";
 
 const initialState = {
@@ -57,6 +58,12 @@ const cartReducer = (state = initialState, action) => {
               : item
           )
           .filter((item) => item.quantity > 0),
+      };
+
+    case CLEAR_CART:
+      return {
+        ...state,
+        items: [],
       };
 
     default:

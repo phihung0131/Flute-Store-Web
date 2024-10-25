@@ -5,7 +5,11 @@ import Review from "../components/Product/Review";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 import apiService from "../services/api";
+import { scrollToTop } from "../helper/scrollToTop";
 const Product = () => {
+  useEffect(() => {
+    scrollToTop();
+  }, []);
   const { id } = useParams();
 
   const [productData, setProductData] = useState({});

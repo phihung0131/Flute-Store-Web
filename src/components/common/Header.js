@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import CartPopup from "../Card/CartPopup";
 import { useSelector } from "react-redux";
 const Header = () => {
+  const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart.items);
-
   const [isCartPopupOpen, setIsCartPopupOpen] = useState(false);
   function handleClick() {
     let collapseMenu = document.getElementById("collapseMenu");
@@ -137,11 +137,17 @@ const Header = () => {
                   {cartItems.length}
                 </span>
               </span>
-              <button className="ml-3 px-5 py-2 text-sm rounded-full text-white border-2 border-[#007bff] bg-[#007bff] hover:bg-[#004bff]">
-                Sign Up
+              <button
+                className="ml-3 px-5 py-2 text-sm rounded-full text-white border-2 border-[#007bff] bg-[#007bff] hover:bg-[#004bff]"
+                onClick={() => navigate("/register")}
+              >
+                Đăng kí
               </button>
-              <button className="ml-3 px-5 py-2 text-sm rounded-full text-white border-2 border-[#007bff] bg-[#007bff] hover:bg-[#004bff]">
-                Sign In
+              <button
+                className="ml-3 px-5 py-2 text-sm rounded-full text-white border-2 border-[#007bff] bg-[#007bff] hover:bg-[#004bff]"
+                onClick={() => navigate("/login")}
+              >
+                Đăng nhập
               </button>
 
               <button

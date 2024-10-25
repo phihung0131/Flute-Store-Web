@@ -12,7 +12,11 @@ const CardItem = (props) => {
       <div className="grid grid-cols-3 items-start gap-4">
         <div className="col-span-2 flex items-start gap-4">
           <div className="w-28 h-28 max-sm:w-24 max-sm:h-24 shrink-0 bg-gray-100 p-2 rounded-md">
-            <img src={props.image} className="w-full h-full object-contain" />
+            <img
+              src={props.image}
+              className="w-full h-full object-contain"
+              alt={props.productName}
+            />
           </div>
 
           <div className="flex flex-col">
@@ -48,7 +52,7 @@ const CardItem = (props) => {
 
         <div className="ml-auto">
           <h4 className="text-lg max-sm:text-base max-sm:text-sm font-bold text-gray-800">
-            ${props.price}
+            ${(props.price * props.quantity).toFixed(2)}
           </h4>
 
           <button
