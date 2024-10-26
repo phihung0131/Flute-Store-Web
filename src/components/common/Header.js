@@ -1,20 +1,31 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import CartPopup from "../Card/CartPopup";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../redux/action/authAction";
+
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
+  const auth = useSelector((state) => state.auth);
   const [isCartPopupOpen, setIsCartPopupOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   function handleClick() {
     let collapseMenu = document.getElementById("collapseMenu");
-
     if (collapseMenu.style.display === "block") {
       collapseMenu.style.display = "none";
     } else {
       collapseMenu.style.display = "block";
     }
   }
+
+  const handleLogout = () => {
+    dispatch(logout());
+    setIsDropdownOpen(false);
+    navigate("/");
+  };
 
   return (
     <>
@@ -137,19 +148,61 @@ const Header = () => {
                   {cartItems.length}
                 </span>
               </span>
-              <button
-                className="ml-3 px-5 py-2 text-sm rounded-full text-white border-2 border-[#007bff] bg-[#007bff] hover:bg-[#004bff]"
-                onClick={() => navigate("/register")}
-              >
-                Đăng kí
-              </button>
-              <button
-                className="ml-3 px-5 py-2 text-sm rounded-full text-white border-2 border-[#007bff] bg-[#007bff] hover:bg-[#004bff]"
-                onClick={() => navigate("/login")}
-              >
-                Đăng nhập
-              </button>
-
+              {!auth.isAuthenticated ? (
+                <>
+                  <button
+                    className="ml-3 px-5 py-2 text-sm rounded-full text-white border-2 border-[#007bff] bg-[#007bff] hover:bg-[#004bff]"
+                    onClick={() => navigate("/register")}
+                  >
+                    Đăng kí
+                  </button>
+                  <button
+                    className="ml-3 px-5 py-2 text-sm rounded-full text-white border-2 border-[#007bff] bg-[#007bff] hover:bg-[#004bff]"
+                    onClick={() => navigate("/login")}
+                  >
+                    Đăng nhập
+                  </button>
+                </>
+              ) : (
+                <div className="relative mx-4">
+                  <button
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="w-10 h-10 rounded-full bg-blue-300 flex items-center justify-center text-gray-700 font-bold focus:outline-none"
+                  >
+                    {auth.username
+                      ? auth.username.charAt(0).toUpperCase()
+                      : "U"}
+                  </button>
+                  {isDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                      <button
+                        onClick={() => {
+                          navigate("/orders");
+                          setIsDropdownOpen(false);
+                        }}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-100"
+                      >
+                        Quản lý đơn hàng
+                      </button>
+                      <button
+                        onClick={() => {
+                          navigate("/profile");
+                          setIsDropdownOpen(false);
+                        }}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-100"
+                      >
+                        Thông tin cá nhân
+                      </button>
+                      <button
+                        onClick={handleLogout}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-100"
+                      >
+                        Đăng xuất
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
               <button
                 id="toggleOpen"
                 className="lg:hidden"

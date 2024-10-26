@@ -26,7 +26,7 @@ const Product = () => {
 
     try {
       apiService.readFeedbacks().then((res) => {
-        const feedbacks = res.data.feedbacks.filter(
+        const feedbacks = res?.data?.feedbacks?.filter(
           (feedback) => +feedback.productId === +id
         );
         setFeedbacks(feedbacks);

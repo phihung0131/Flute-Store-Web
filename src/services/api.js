@@ -11,6 +11,10 @@ export const apiService = {
     axiosInstance.get(`product/show.php?productId=${id}`, { requiresAuth: false }),
   readFeedbacks: () =>
     axiosInstance.get("/feedback/read.php", { requiresAuth: false }),
+  login: (credentials) =>
+    axiosInstance.post("/authenticate/login.php", JSON.stringify(credentials)),
+  register: (userInfos) =>
+    axiosInstance.post("/authenticate/register.php", JSON.stringify(userInfos)),
 };
 
 export default apiService;

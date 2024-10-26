@@ -2,8 +2,9 @@
 import { LOGIN_SUCCESS, LOGOUT } from "../action/authAction";
 
 const initialState = {
-  name: "",
+  id: "",
   username: "",
+  role: "",
   token: "",
   isAuthenticated: false,
 };
@@ -13,8 +14,9 @@ const authReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        name: action.payload.name,
+        name: action.payload.id,
         username: action.payload.username,
+        role: action.payload.role,
         token: action.payload.token,
         isAuthenticated: true,
       };

@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react";
 import { scrollToTop } from "../helper/scrollToTop";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { apiService } from "../services/api";
+import { showToast } from "../helper/showToast";
+import { useDispatch, useSelector } from "react-redux";
+import { loginSuccess } from "../redux/action/authAction";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+
   useEffect(() => {
     scrollToTop();
   }, []);
@@ -16,8 +24,27 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     // Xử lý logic đăng nhập ở đây
-    console.log({ username, password });
+    apiService.login({ username, password }).then((res) => {
+      console.log(res.data);
+      if (res?.data?.message !== "Login successful") {
+        showToast.error(res?.data?.message);
+      } else {
+        showToast.success("Login successful");
+        const userData = {
+          id: res?.data?.member?.id,
+          username: res?.data?.member?.username,
+          role: res?.data?.role,
+          token: res?.data?.token,
+        };
+        dispatch(loginSuccess(userData));
+        navigate("/");
+      }
+    });
   };
+
+  if (auth.isAuthenticated) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="bg-gray-50 font-[sans-serif]">

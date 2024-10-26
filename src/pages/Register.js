@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react";
 import { scrollToTop } from "../helper/scrollToTop";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
+import apiService from "../services/api";
+import { useDispatch, useSelector } from "react-redux";
+import { loginSuccess } from "../redux/action/authAction";
+import { showToast } from "../helper/showToast";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+
   useEffect(() => {
     scrollToTop();
   }, []);
@@ -12,15 +20,34 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
-  const [birthday, setBirthday] = useState("");
+  const [birth, setBirth] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
   // Hàm xử lý đăng ký
   const handleRegister = (e) => {
     e.preventDefault();
     // Xử lý logic đăng ký ở đây
-    console.log({ username, password, fullName, birthday, phoneNumber });
+    apiService.register({ username, password, fullName, birth, phoneNumber }).then((res) => {
+      if (res?.data?.message !== "User registered successfully") {
+        showToast.error(res?.data?.message);
+      } else {
+        showToast.success("User registered successfully");
+        const userData = {
+          id: res?.data?.member?.id,
+          username: res?.data?.member?.username,
+          role: "member",
+          token: res?.data?.token,
+        };
+        console.log(userData);
+        dispatch(loginSuccess(userData));
+        navigate("/");
+      }
+    });
   };
+
+  if (auth.isAuthenticated) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="bg-gray-50 font-[sans-serif]">
@@ -127,13 +154,13 @@ const Register = () => {
                 </label>
                 <div className="relative flex items-center">
                   <input
-                    name="birthday"
+                    name="birth"
                     type="date"
                     required
                     className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
                     placeholder="YYYY-MM-DD"
-                    value={birthday}
-                    onChange={(e) => setBirthday(e.target.value)}
+                    value={birth}
+                    onChange={(e) => setBirth(e.target.value)}
                   />
                 </div>
               </div>

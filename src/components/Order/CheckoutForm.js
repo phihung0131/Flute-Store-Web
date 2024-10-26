@@ -49,7 +49,7 @@ const CheckoutForm = () => {
   };
 
   return (
-    <div className="font-[sans-serif] bg-white p-10">
+    <div className="font-[sans-serif] bg-white container mx-auto">
       <div className="flex max-sm:flex-col gap-12 max-lg:gap-4 h-full">
         <div className="bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 sm:h-screen sm:sticky sm:top-0 lg:min-w-[370px] sm:min-w-[300px]">
           <div className="relative h-full">
