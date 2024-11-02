@@ -12,6 +12,8 @@ import Order from "./pages/Order";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import About from "./pages/About";
+import OrderList from "./pages/OrderList";
+import Profile from "./pages/Profile";
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +26,9 @@ function App() {
         <Route path="/order" element={<Order />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/orders" element={<OrderList />} />
+        <Route path="/profile" element={<Profile />} />
+
       </Routes>
 
       <ToastContainer

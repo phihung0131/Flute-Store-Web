@@ -15,7 +15,7 @@ const Register = () => {
     scrollToTop();
   }, []);
   const [showPassword, setShowPassword] = useState(false);
-  
+
   // Thêm các state mới
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -27,22 +27,24 @@ const Register = () => {
   const handleRegister = (e) => {
     e.preventDefault();
     // Xử lý logic đăng ký ở đây
-    apiService.register({ username, password, fullName, birth, phoneNumber }).then((res) => {
-      if (res?.data?.message !== "User registered successfully") {
-        showToast.error(res?.data?.message);
-      } else {
-        showToast.success("User registered successfully");
-        const userData = {
-          id: res?.data?.member?.id,
-          username: res?.data?.member?.username,
-          role: "member",
-          token: res?.data?.token,
-        };
-        console.log(userData);
-        dispatch(loginSuccess(userData));
-        navigate("/");
-      }
-    });
+    apiService
+      .register({ username, password, fullName, birth, phoneNumber })
+      .then((res) => {
+        if (res?.data?.message !== "User registered successfully with cart") {
+          showToast.error(res?.data?.message);
+        } else {
+          showToast.success("User registered successfully");
+          const userData = {
+            id: res?.data?.member?.id,
+            username: res?.data?.member?.username,
+            role: "member",
+            token: res?.data?.token,
+          };
+          console.log(userData);
+          dispatch(loginSuccess(userData));
+          navigate("/");
+        }
+      });
   };
 
   if (auth.isAuthenticated) {

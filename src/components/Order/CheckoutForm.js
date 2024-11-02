@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../../helper/showToast";
 import { clearCart } from "../../redux/action/cartAction";
+import apiService from "../../services/api";
 const CheckoutItem = (props) => {
   return (
     <div className="flex items-start gap-4">
@@ -20,7 +21,7 @@ const CheckoutItem = (props) => {
             Số lượng <span className="ml-auto">{props.quantity}</span>
           </li>
           <li className="flex flex-wrap gap-4">
-            Tổng tiền{" "}
+            Tổng tiền
             <span className="ml-auto">${props.price * props.quantity}</span>
           </li>
         </ul>
@@ -32,6 +33,12 @@ const CheckoutItem = (props) => {
 const CheckoutForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [address, setAddress] = useState("");
+  const [Reciever, setReciever] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+
   const cartItems = useSelector((state) => state.cart.items);
   const totalPrice = cartItems
     .reduce((total, item) => total + item.price * item.quantity, 0)
@@ -43,9 +50,26 @@ const CheckoutForm = () => {
   };
 
   const handleCompleteOrder = () => {
-    showToast.success("Đã hoàn thành đặt hàng");
-    dispatch(clearCart());
-    navigate("/");
+    const orderInfos = {
+      payStatus: "Pending",
+      Reciever,
+      phoneNumber,
+      address,
+      products: cartItems.map((item) => ({
+        productId: item.productId,
+        quantity: item.quantity,
+      })),
+    };
+
+    apiService.createOrder(orderInfos).then((res) => {
+      if (res?.data?.message !== "Tạo đơn hàng thành công") {
+        showToast.error(res?.data?.message);
+        return;
+      }
+      showToast.success("Đã hoàn thành đặt hàng");
+      dispatch(clearCart());
+      navigate("/");
+    });
   };
 
   return (
@@ -83,14 +107,29 @@ const CheckoutForm = () => {
                   <input
                     type="text"
                     placeholder="Họ"
+                    onChange={(e) =>
+                      setReciever(
+                        e.target.value +
+                          " " +
+                          document.querySelector('input[placeholder="Tên"]')
+                            .value
+                      )
+                    }
                     className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
                   />
                 </div>
-
                 <div>
                   <input
                     type="text"
                     placeholder="Tên"
+                    onChange={(e) =>
+                      setReciever(
+                        document.querySelector('input[placeholder="Họ"]')
+                          .value +
+                          " " +
+                          e.target.value
+                      )
+                    }
                     className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
                   />
                 </div>
@@ -99,14 +138,16 @@ const CheckoutForm = () => {
                   <input
                     type="email"
                     placeholder="Email"
+                    onChange={(e) => setEmail(e.target.value)}
                     className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
                   />
                 </div>
 
                 <div>
                   <input
-                    type="number"
+                    type="text"
                     placeholder="Số điện thoại"
+                    onChange={(e) => setPhoneNumber(e.target.value)}
                     className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
                   />
                 </div>
@@ -122,6 +163,21 @@ const CheckoutForm = () => {
                   <input
                     type="text"
                     placeholder="Tỉnh/Thành phố"
+                    onChange={(e) => {
+                      const city = e.target.value;
+                      const district = document.querySelector(
+                        'input[placeholder="Huyện/Quận"]'
+                      ).value;
+                      const ward = document.querySelector(
+                        'input[placeholder="Xã/Thị trấn"]'
+                      ).value;
+                      const street = document.querySelector(
+                        'input[placeholder="Số nhà, đường"]'
+                      ).value;
+                      setAddress(
+                        `${street}, ${ward}, ${district}, ${city}`.trim()
+                      );
+                    }}
                     className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
                   />
                 </div>
@@ -129,6 +185,21 @@ const CheckoutForm = () => {
                   <input
                     type="text"
                     placeholder="Huyện/Quận"
+                    onChange={(e) => {
+                      const district = e.target.value;
+                      const city = document.querySelector(
+                        'input[placeholder="Tỉnh/Thành phố"]'
+                      ).value;
+                      const ward = document.querySelector(
+                        'input[placeholder="Xã/Thị trấn"]'
+                      ).value;
+                      const street = document.querySelector(
+                        'input[placeholder="Số nhà, đường"]'
+                      ).value;
+                      setAddress(
+                        `${street}, ${ward}, ${district}, ${city}`.trim()
+                      );
+                    }}
                     className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
                   />
                 </div>
@@ -136,6 +207,21 @@ const CheckoutForm = () => {
                   <input
                     type="text"
                     placeholder="Xã/Thị trấn"
+                    onChange={(e) => {
+                      const ward = e.target.value;
+                      const city = document.querySelector(
+                        'input[placeholder="Tỉnh/Thành phố"]'
+                      ).value;
+                      const district = document.querySelector(
+                        'input[placeholder="Huyện/Quận"]'
+                      ).value;
+                      const street = document.querySelector(
+                        'input[placeholder="Số nhà, đường"]'
+                      ).value;
+                      setAddress(
+                        `${street}, ${ward}, ${district}, ${city}`.trim()
+                      );
+                    }}
                     className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
                   />
                 </div>
@@ -143,6 +229,21 @@ const CheckoutForm = () => {
                   <input
                     type="text"
                     placeholder="Số nhà, đường"
+                    onChange={(e) => {
+                      const street = e.target.value;
+                      const city = document.querySelector(
+                        'input[placeholder="Tỉnh/Thành phố"]'
+                      ).value;
+                      const district = document.querySelector(
+                        'input[placeholder="Huyện/Quận"]'
+                      ).value;
+                      const ward = document.querySelector(
+                        'input[placeholder="Xã/Thị trấn"]'
+                      ).value;
+                      setAddress(
+                        `${street}, ${ward}, ${district}, ${city}`.trim()
+                      );
+                    }}
                     className="px-4 py-3 bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm rounded-md focus:outline-blue-600"
                   />
                 </div>
