@@ -25,20 +25,23 @@ const Login = () => {
     e.preventDefault();
     // Xử lý logic đăng nhập ở đây
     apiService.login({ username, password }).then((res) => {
-      console.log(res.data);
       if (res?.data?.message !== "Login successful") {
         showToast.error(res?.data?.message);
       } else {
         showToast.success("Login successful");
+        console.log(res.data.member.id);
         const userData = {
-          id: res?.data?.member?.id,
-          username: res?.data?.member?.username,
-          role: res?.data?.role,
-          token: res?.data?.token,
+          id: res.data.member.id,
+          username: res.data.member.username,
+          role: res.data.role,
+          token: res.data.token,
         };
         dispatch(loginSuccess(userData));
         navigate("/");
       }
+    }).catch(error => {
+      showToast.error("Login failed");
+      console.error(error);
     });
   };
 

@@ -14,7 +14,7 @@ const authReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        name: action.payload.id,
+        id: action.payload.id, 
         username: action.payload.username,
         role: action.payload.role,
         token: action.payload.token,

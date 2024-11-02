@@ -19,6 +19,7 @@ export const apiService = {
   readInfoMember: () => axiosInstance.get("/member/show.php"),
   updateInfoMember: (memberInfos) =>
     axiosInstance.put("/member/update.php", JSON.stringify(memberInfos)),
+  createFeedback: (feedbackInfos) => axiosInstance.post("/feedback/create.php", JSON.stringify(feedbackInfos)),
 };
 
 export default apiService;

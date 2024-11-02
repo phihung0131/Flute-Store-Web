@@ -40,7 +40,7 @@ const Product = () => {
     <div className="product-page">
       <Header />
       <ProductInfo {...productData} />
-      <Review feedbacks={feedbacks} />
+      <Review feedbacks={feedbacks} productId={id} />
       <Footer />
     </div>
   );

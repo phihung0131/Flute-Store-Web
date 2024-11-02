@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import ReviewItem from "./ReviewItem";
+import apiService from "../../services/api";
+import { showToast } from "../../helper/showToast";
 
 const Review = (props) => {
+  const auth = useSelector((state) => state.auth);
+
   const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState({ text: "", rating: 0 });
 
@@ -22,10 +27,39 @@ const Review = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setReviews([
-      ...reviews,
-      { ...newReview, name: "Anonymous", time: "Just now" },
-    ]);
+    if (!auth.isAuthenticated) {
+      showToast.error("Bạn cần đăng nhập để đánh giá sản phẩm");
+      return;
+    }
+    console.log({
+      memberId: auth.id,
+      comment: newReview.text,
+      rating: newReview.rating,
+      productId: props.productId,
+    });
+    apiService
+      .createFeedback({
+        memberId: auth.id,
+        comment: newReview.text,
+        rating: newReview.rating,
+        productId: props.productId,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res?.data?.message === "Feedback created") {
+          showToast.success("Tạo đánh giá thành công");
+          setReviews([
+            ...reviews,
+            {
+              name: "Bạn",
+              text: newReview.text,
+              rating: newReview.rating,
+            },
+          ]);
+        } else {
+          showToast.error("Tạo đánh giá thất bại");
+        }
+      });
     setNewReview({ text: "", rating: 0 });
   };
 
