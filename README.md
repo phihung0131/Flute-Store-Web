@@ -1,70 +1,173 @@
-# Getting Started with Create React App
+# 🎶 Flute Store Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack e-commerce web application for purchasing flutes, built with **React**, **PHP**, and **MySQL**.
 
-## Available Scripts
+## 🎬 Video Preview
 
-In the project directory, you can run:
+[![Project Demo]()
 
-### `npm start`
+## 🌟 Overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Flute Store is an online platform for customers to explore and buy a variety of flutes. Administrators can manage the inventory, orders, and users through a dedicated admin portal. This project includes both frontend and backend functionalities.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🛠️ Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Frontend
 
-### `npm run build`
+- ⚛️ **React.js**
+- 🔄 **Redux** - State management
+- 🚏 **React Router** - Navigation
+- 🎨 **Tailwind CSS** - Styling
+- 🌐 **Axios** - API calls
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Backend
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- 🐘 **PHP**
+- 🗄️ **MySQL** - Database
+- 🛠️ **XAMPP** - Local development server
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## ✨ Features
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Customer Features
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 🔍 Browse flute products
+- 👤 User registration & login
+- 🛒 Shopping cart functionality
+- 📦 Order placement & tracking
+- 🔧 Profile management
+- ⭐ Product reviews & ratings
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Admin Features
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- 📊 Dashboard with analytics
+- 📦 Product management (CRUD)
+- 🚚 Order management
+- 👥 User management
+- 💬 Feedback moderation
+- 📜 Admin activity logs
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🚀 Getting Started
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Prerequisites
 
-### Code Splitting
+- 📦 **Node.js** (v14 or higher)
+- 🛠️ **XAMPP** (PHP 7.4+ and MySQL)
+- 🐙 **Git**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Installation
 
-### Analyzing the Bundle Size
+#### 1. Clone the repository
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+git clone [repository-url]
+cd shop
+```
 
-### Making a Progressive Web App
+#### 2. Backend Setup
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Start **XAMPP** and ensure **Apache** and **MySQL** services are running.
+- Create a new MySQL database named `dbshop`.
+- Import the database schema from `database.sql`.
+- Copy the `Backend` folder to your XAMPP's htdocs directory:
+  ```bash
+  cp -r Backend/ [xampp-path]/htdocs/shop-api
+  ```
 
-### Advanced Configuration
+#### 3. Frontend Setup
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Navigate to the `Frontend` directory:
+  ```bash
+  cd Frontend
+  npm install
+  ```
+- Configure API endpoint:
+  - Create a `.env` file in the `Frontend` directory:
+    ```plaintext
+    REACT_APP_API_URL=http://localhost/shop-api
+    ```
 
-### Deployment
+### Running the Application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+#### Backend
 
-### `npm run build` fails to minify
+- Ensure **XAMPP** (Apache and MySQL) is running.
+- Access backend API at [http://localhost/shop-api](http://localhost/shop-api).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### Frontend
+
+- Start the frontend. It will be accessible at [http://localhost:3000](http://localhost:3000).
+
+---
+
+## 📂 Project Structure
+
+```
+├── Backend/
+│   ├── api/           # API endpoints
+│   ├── config/        # Database configuration
+│   ├── middleware/    # Authentication middleware
+│   └── model/         # Database models
+├── Frontend/
+│   ├── public/
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       ├── redux/
+│       └── services/
+└── database.sql       # Database schema
+```
+
+---
+
+## 🔍 Main Features Details
+
+### 🛒 Customer Portal
+
+- Detailed product views
+- Real-time shopping cart updates
+- Secure checkout process
+- Order history & tracking
+- Profile management
+- Ratings & reviews for products
+
+### 🛠️ Admin Portal
+
+- Comprehensive dashboard with key metrics
+- Full product management capabilities
+- Order processing & updates
+- User account management
+- Review moderation
+- Admin activity tracking
+
+---
+
+## 👥 User Roles
+
+- **Customer**
+  - Register/Login
+  - Browse products
+  - Manage cart & orders
+  - Submit product reviews
+  - Update profile
+- **Administrator**
+  - Full access to system
+  - Product and order management
+  - User management
+  - Analytics dashboard
+  - Feedback moderation
+  - Activity log tracking
+
+---
+
+## 🔒 Security Features
+
+- 🛡️ **JWT-based Authentication**
+- 🔐 **Password Encryption**
+- 🚫 **Protected API Endpoints**
+- 🎚️ **Role-based Access Control**
