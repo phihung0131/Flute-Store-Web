@@ -4,7 +4,7 @@ A full-stack e-commerce web application for purchasing flutes, built with **Reac
 
 ## 🎬 Video Preview
 
-[![Project Demo]()
+[![Project Demo](https://youtu.be/QIQ_KQKGc8Q)
 
 ## 🌟 Overview
 
